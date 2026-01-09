@@ -1,0 +1,259 @@
+\documentclass{article}
+\usepackage[UTF8]{ctex} 
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\geometry{a4paper, margin=1.5cm}
+
+\title{线性表}
+\author{Tan Yiqing}
+\date{\today}
+
+\begin{document}
+\maketitle
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.85\textwidth]{"D:/program/data_construction/firefly/_20250909224817_161_13.jpg"}
+    \end{figure}
+
+\section{线性表的逻辑结构}
+\subsection{定义}
+\indent 线性表，亦简称表，是 n 个句有相同类型的数据元素的有限序列。
+\indent 规定线性表的长度为表中元素个数$n$，$n=0$时称为空表。
+写作:$L={(a_1,a_2,...,a_n)}$，$a_i$为表中第i个元素，1$\leq$i$\leq$n。
+空表写作:$L={()}$。\\
+
+\subsection{特点}
+\indent 有限性：线性表中元素个数有限。\\
+\indent 相同性：线性表中元素类型相同。\\
+\indent 顺序性：线性表中元素是有序排列的。\\ 
+
+\subsection{功能}
+\subsubsection{构造函数}
+\begin{itemize}
+\item \textbf{前置条件}：表不存在
+\item \textbf{输入}：无
+\item \textbf{功能}：表的初始化
+\item \textbf{输出}：无
+\item \textbf{后置条件}：表存在且为空
+\end{itemize}
+
+\subsubsection{析构函数}
+\begin{itemize}
+\item \textbf{前置条件}：表存在
+\item \textbf{输入}：无
+\item \textbf{功能}：销毁表，释放动态申请的空间
+\item \textbf{输出}：无
+\item \textbf{后置条件}：已释放所有在这个表的操作申请过的动态空间
+\end{itemize}
+
+\subsubsection{长度}
+\begin{itemize}
+\item \textbf{前置条件}：表存在
+\item \textbf{输入}：无
+\item \textbf{功能}：回传表的长度
+\item \textbf{输出}：表的长度
+\item \textbf{后置条件}：表没有变化
+\end{itemize}
+
+\subsubsection{是否空表}
+\begin{itemize}
+\item \textbf{前置条件}：表存在
+\item \textbf{输入}：无
+\item \textbf{功能}：判断表是否为空(若是空表则返回true，否则返回false)
+\item \textbf{输出}：如功能
+\item \textbf{后置条件}：表没有变化
+\end{itemize}
+
+\subsubsection{插入元素}
+\begin{itemize}
+\item \textbf{前置条件}：表存在
+\item \textbf{输入}：元素值x，插入位置i
+\item \textbf{功能}：把元素x插入到表的第i个位置。如$L={(a,b,c)}$,$i=1$,则插入后$L={(a,x,b,c)}$。
+\item \textbf{输出}：若插入失败则抛出异常
+\item \textbf{后置条件}：若插入成功，表的第i个位置为x，表的长度加1。
+\end{itemize}
+
+\subsubsection{删除元素}
+\begin{itemize}
+\item \textbf{前置条件}：表存在
+\item \textbf{输入}：整数i
+\item \textbf{功能}：把表的第i个位置的元素删除。如$L={(a,b,c)}$,$i=1$,则删除后$L={(a,c)}$。
+\item \textbf{输出}：若删除成功，回传删掉的元素值；若删除失败则抛出异常
+\item \textbf{后置条件}：若删除成功，表中元素减少一个，表的长度减1。
+\end{itemize}
+
+\subsubsection{查找所在位置的元素}
+\begin{itemize}
+\item \textbf{前置条件}：表存在
+\item \textbf{输入}：整数i
+\item \textbf{功能}：回传表中第i个位置的元素。如$L={(a,b,c)}$,$i=1$,则返回$b$。
+\item \textbf{输出}：若i合法，回传表中第i个位置的元素；否则抛出异常
+\item \textbf{后置条件}：表没有变化
+\end{itemize}
+
+\subsubsection{查找元素所在位置}
+\begin{itemize}
+\item \textbf{前置条件}：表存在
+\item \textbf{输入}：元素值x
+\item \textbf{功能}：查找元素x在表中的首次出现的位置；若不存在，回传-1。
+\item \textbf{输出}：如功能
+\item \textbf{后置条件}：表没有变化
+\end{itemize}
+
+\section{顺序表}
+\subsection{定义}
+\indent 顺序表的存储结构是用一个数列存储所有数据，另外用一个整数变量存储表的长度。
+这是一个连续的存储结构，无需特别写出前驱后继关系。\\
+\indent 可以认为是一维数组加上一堆功能。\\
+\indent 注：需要数列的长度，如长度为1000，在插入第1001个元素时可能会出问题。\\
+
+\subsection{实现}
+\subsubsection{初始化、销毁、长度、是否空表}
+\begin{itemize}
+\item \textbf{初始化}：申请一个长度为maxSize的数组，length=0
+\item \textbf{销毁}：释放数组空间,这里因为没东西，所以啥都不用做。
+\item \textbf{长度}：返回length
+\item \textbf{是否空表}：判断length是否为0
+注：上述时间复杂度均为O(1)
+\end{itemize}
+
+\subsubsection{插入元素}
+\begin{itemize}
+\item 先把${(a_i,...,a_{n-1})}$后移一位，然后把$x$放到$a_i$的位置上，n++。
+注：时间复杂度为O(n),与位置i和表长n有关，具体来说是$n-i+1$，平均复杂度（认为i是均匀分布）为O(n/2)=O(n)。
+如果要追求效率应该让i尽量大。\\
+有些i是非法的，比如i<0或i>n。
+\end{itemize}
+
+\subsubsection{删除元素}
+\begin{itemize}
+\item 先把${(a_{i+1},...,a_{n-1})}$前移一位，然后n--。
+注：时间复杂度为O(n),与位置i和表长n有关，具体来说是$n-i$，平均复杂度（认为i是均匀分布）为O(n/2)=O(n)。
+如果要追求效率应该让i尽量小。\\
+有些i是非法的，比如i<0或i>n-1。而且$a_{n-1}$的位置的值是不变的。
+\end{itemize}
+
+\subsubsection{查找}
+\begin{itemize}
+\item \textbf{查找所在位置的元素}：当位置合理，直接返回$a_i$；否则抛出异常。时间复杂度为O(1)。
+\item \textbf{查找元素所在位置}：从前往后遍历数组，找到第一个等于x的元素，返回其位置；否则返回-1。时间复杂度为O(n)。
+\end{itemize}
+
+\subsection{优缺点}
+\subsubsection{优点}
+\begin{itemize}
+\item 不用特别处理元素的前驱后继关系，逻辑简单。
+\item 随机存储，时间复杂度为O(1)。
+\item 插入和删除操作相对简单，时间复杂度为O(n)。
+\end{itemize}
+
+\subsubsection{缺点}
+\begin{itemize}
+\item 容量限制，需要预先分配内存，可能导致空间浪费。
+\item 插入和删除操作需要移动大量元素，效率较低。、
+\item 碎片化问题，频繁的插入和删除操作可能导致内存碎片化，影响性能。
+\end{itemize}
+
+\section{向量表}
+\subsection{定义}
+\begin{itemize}
+\item 向量表是顺序表的一种改进形式，基本操作和顺序表相同，但解决了顺序表容量限制的问题。\\
+\item 数列是动态申请的，初始化时首次申请数列的空间；因此销毁时要释放空间。\\
+\item 需要一个新的变量来储存目前表的容量。\\
+\item 主要的区别在于插入的处理：当表满时，当表满时，申请一个新的数列空间（一般为原容量的双倍），
+复制所有数据到新数列，然后把旧的数列空间释放。
+\end{itemize}
+
+\section{链表}
+\subsection{定义}
+\indent 数据的物理存储不一定按顺序，要想办法表示数据的前驱后继。
+于是我们对每个数据同时配上若干个指针来达到目的。
+单链表就是我们给每个数据配上一个指针，指向它的后继，最后一个指向空白。\\
+
+\subsection{实现}
+\subsubsection{是否空表,遍历}
+\begin{itemize}
+\item \textbf{是否空表}：判断首指针是否为空。
+\item \textbf{遍历}：从头指针开始，依次访问每个节点，直到遍历完整个链表，指针指向空白。
+\end{itemize}
+
+\subsubsection{插入元素}
+\begin{itemize}
+\item \textbf{空表}：做一个新的节点，其指针指向空白，放入数据，首指针指向新的节点。
+\item \textbf{非空表}：找到第i-1个节点，做一个新的节点，其指针指向第i个节点，放入数据，然后把第i-1个节点的指针指向新的节点。时间复杂度为O(n)，与位置i有关，平均复杂度为O(n/2)=O(n)。
+注：自己想想一下框框图。
+\end{itemize}
+
+\subsection{构造与销毁}
+\begin{itemize}
+\item \textbf{构造函数}：申请一个头节点，指针指向空白。长度设为0。
+\item \textbf{析构函数}：从头节点开始，依次释放每个节点，直到指针指向空白。
+具体来说是：暂存首指针指向的节点至K，首指针指向K的后继，释放K，重复直到首指针指向空白。
+\end{itemize}
+
+\subsection{长度}
+\begin{itemize}
+\item 在没有长度的私有变量的情况下。从头节点开始，依次访问每个节点，直到遍历完整个链表，指针指向空白。时间复杂度为O(n)。
+\end{itemize}
+
+\subsection{插入}
+\begin{itemize}
+\item 把数据x插入第i个位置。
+\item 遍历到第i-1个节点，记为N。
+\item 做一个新的节点，其指针指向第i个节点，放入数据，然后把第i-1个节点的指针指向新的节点。
+注：时间复杂度为O(n)，与位置i有关，平均复杂度为O(n/2)=O(n)。
+\end{itemize}
+
+\subsection{删除}
+\begin{itemize}
+\item 把第i个节点删除。
+\item 遍历到第i-1个节点，记为N。
+\item 用一个节点指针K暂存N的指针指向的节点(即第i个节点)。
+\item 把N的指针指向K指向的下一个节点，即第i个节点的后继，释放第i个节点。
+注：时间复杂度为O(n)，与位置i有关，平均复杂度为O(n/2)=O(n)。
+\end{itemize}
+
+\subsection{查找}
+\begin{itemize}
+\item 每个节点遍历，直到找到第i个节点，返回其数据。
+\end{itemize}
+
+\section{题外话：算法设计}
+\begin{itemize}
+    \item 确定输入输出。
+    \item 写例子。
+    \item 正反面考虑。
+    \item 大致思路，边界考虑。
+    \item 验证。
+
+\end{itemize} 
+
+\section{顺序表和链表的比较}
+\begin{itemize}
+    \item 存储结构：顺序表是连续存储，链表是非连续存储。
+    \item 空间利用率：顺序表可能会浪费空间，链表空间利用率高。
+    \item 访问速度：顺序表支持随机访问，链表只能顺序访问。
+    \item 前者适合频繁查找，后者适合频繁插入删除。
+\end{itemize}
+
+\section{链表算法提升}
+\subsection{双链表}
+每个节点配两个指针，分别指向前驱与后继。提高查找链表结点前驱的效率。
+\subsection{静态链表}
+使用数组存取一堆结点，结点之间的指针用数组位置取代。
+\subsection{循环链表}
+把尾节点指向首节点，做成单循环链表；
+把尾的结点的后继指向首数据的结点，并把首数据的前驱指向尾结点，做成双循环链表。
+\subsection{带头节点的链表(ppt中的小技巧，也叫哨兵节点)}
+在链表的最前面加一个不存数据的节点，作为头节点。
+\subsection{间接寻址}
+这是对于顺序表的一个改版，生成的数列不直接存数据，而是存一个指向数据的指针。这个改
+版的好处是插入、删除移动的只是这堆指针，而不是整个数据。（对于每个数据元素比较庞大时，这个确保
+了移动量很小）。
+
+\end{document}

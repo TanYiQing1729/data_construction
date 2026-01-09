@@ -1,0 +1,162 @@
+\documentclass{article}
+\usepackage[UTF8]{ctex} 
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\geometry{a4paper, margin=1.5cm}
+
+\title{绪论}
+\author{Tan Yiqing}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.70\textwidth]{"D:/program/data_construction/firefly/f0b0742bab8a4dd059b1f0c2eecdfa3e.jpg"}
+    \end{figure}
+
+\section{问题求解和程序设计}
+
+
+
+\section{数据结构的基本概念}
+\subsection{数据结构}
+数据、数据元素、数据项、数据结构、逻辑结构、储存结构
+
+
+\section{算法的基本概念}
+\subsection{算法的定义}
+算法是对特定问题求解过程的一种描述，为指令的有限序列。
+\subsection{算法的特性}
+有穷性，确定性，可行性，输入，输出，基本操作。  \\
+好代码的特点：正确性，健壮性，可理解性，抽象分级，高效性。
+\subsection{算法的描述方法}
+自然语言，伪代码，流程图，程序语言。
+
+
+\subsection{算法分析}
+研究方法：事后统计，事前分析
+    \subsubsection{时间复杂度}
+    认为基本语句的时间一致，关心基本语句执行次数。\\
+    \textbf{定义:} 对于两个函数 $f(n)$ 和 $g(n)$，如果存在正常数 $c$ 和 $n_0$，使得：
+    \[
+        \forall n > n_0,\, f(n) \leq c g(n)
+    \]
+    则称 $f(n)$ 的渐近上界为 $O(g(n))$，记作 $f(n) = O(g(n))$。
+\begin{enumerate}
+    \item \textbf{O($\log_2 n$) 示例：二分查找}
+\begin{lstlisting}[language=C++]
+int binarySearch(int arr[], int n, int target) {
+    int left = 0, right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+        else if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+\end{lstlisting}
+
+    \item \textbf{O($n$) 示例：线性查找}
+\begin{lstlisting}[language=C++]
+int linearSearch(int arr[], int n, int target) {
+    for (int i = 0; i < n; ++i) {
+        if (arr[i] == target) return i;
+    }
+    return -1;
+}
+\end{lstlisting}
+
+    \item \textbf{O($n^2$) 示例：冒泡排序}
+\begin{lstlisting}[language=C++]
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+    \item \textbf{O($2^n$) 示例：斐波那契数列}
+\begin{lstlisting}[language=C++]
+int fib(int n) {
+    if (n <= 1) return n;
+    return fib(n - 1) + fib(n - 2);
+}
+\end{lstlisting}
+
+    \item \textbf{O($n!$) 示例：全排列}
+\begin{lstlisting}[language=C++]
+void permute(vector<int>& nums, int l, int r) {
+    if (l == r) {
+        // print permutation
+        return;
+    }
+    for (int i = l; i <= r; ++i) {
+        swap(nums[l], nums[i]);
+        permute(nums, l + 1, r);
+        swap(nums[l], nums[i]);
+    }
+}
+\end{lstlisting}
+
+\end{enumerate}
+    
+\begin{enumerate}
+    \item \textbf{辗转相除法时间复杂度证明：}
+
+设欧几里得算法为：对 $a>b>0$，不断执行 $(a,b)\leftarrow(b,\,a\bmod b)$ 直到 $b=0$。记余数序列
+\[
+r_{-1}=a,\quad r_0=b,\quad r_{i-1}=q_i\,r_i+r_{i+1}\ (q_i\in\mathbb{Z}_{\ge1}),\quad 0\le r_{i+1}<r_i.
+\]
+算法在 $r_t=0$ 时结束，步数为 $t$。
+
+\textbf{关键不等式（两步减半）：}
+由 $r_i=q_{i+1}r_{i+1}+r_{i+2}$ 且 $q_{i+1}\ge1$，得
+\[
+r_i \ge r_{i+1}+r_{i+2}\ \ge\ 2r_{i+2}\quad\Rightarrow\quad r_{i+2}\ \le\ \frac{r_i}{2}\qquad(\forall i\ge0).
+\]
+因此对任意 $k\ge0$，
+\[
+r_{2k}\ \le\ \frac{r_0}{2^{k}}=\frac{b}{2^{k}},\qquad
+r_{2k+1}\ \le\ \frac{r_1}{2^{k}}\ \le\ \frac{a}{2^{k}}.
+\]
+
+\textbf{步数上界：}
+当 $k>\log_2 b$ 时，$r_{2k}<1$，而 $r_{2k}$ 为非负整数，只能为 $0$，算法已在（或早于）第 $2k$ 步结束。
+故
+\[
+t\ \le\ 2\big\lceil \log_2 b\big\rceil\ =\ O(\log b)\ \subseteq\ O(\log n),\quad(n=\min\{a,b\}).
+\]
+结论：欧几里得算法时间复杂度为 $O(\log n)$。
+
+\end{enumerate}
+
+
+\section{数据结构}
+\indent 定义：数据结构由数据与结构组成。数据之间的关系即为其结构。\\
+结构的视点分为逻辑结构与存储结构，前者为数据之间的逻辑关系（如前面有看过的例子）；
+后者又称物理结构，为数据及逻辑结构在计算机中的表示。\\
+\indent 逻辑结构是用户视角，面向问题的。存储结构是实现视角，面向计算机的。\\
+\indent 数据类型：一组值的集合以及定义于这个集上的一组操作的总称。（例：整数类型）\\
+\indent 抽象：抽象出本质的特征而略过细节。\\
+\indent 抽象数据类型 (Abstract DataType, ADT)：一个数据结构及对该结构上的一组操作的总称。\\
+
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{D:/program/data_construction/L1/理论/ScreenShot_2025-10-31_144235_421.png}
+\end{figure}
+
+\end{document}
