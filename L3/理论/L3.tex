@@ -1,0 +1,230 @@
+\documentclass{article}
+\usepackage[UTF8]{ctex} 
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\geometry{a4paper, margin=1.5cm}
+
+\title{线性表特殊例子：栈和队列}
+\author{Tan Yiqing}
+\date{\today}
+
+\begin{document}
+\maketitle
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.75\textwidth]{"D:/program/data_construction/firefly/v2-7904daf31705e9ec03cb510e40b9f3fa_r.jpg"}
+    \end{figure}
+
+\section{栈的逻辑结构}
+\subsection{定义}
+\indent 栈是只允许在固定一端进行插入和删除操作的线性表。
+允许插入和删除的一端称为栈顶，另一端称为栈底。\\
+\indent 栈的插入操作称为进栈(push)，删除操作称为出栈(pop)。
+栈中最后插入的元素最先被删除，称为后进先出(LIFO,Last In First Out)原则。\\
+
+\subsection{出栈序列的数量}
+\indent 设栈中有n个元素，按照1到n的顺序进栈(注：只要求顺序符合，不一定一口气进完)，则所有可能的出栈序列共有$\frac{1}{n+1}\binom{2n}{n}$种。\\
+\indent 例如：n=3时，共有5种出栈序列，分别为123,132,213,231,321。312没有的原因是要想弹出3，必须先把1和2压入栈中，可是要想输出1，必须输出2，矛盾。\\
+\indent 这一现象与Catalan数有关，我们将它与二叉树建立双射关系来证明。\\
+\indent 因此递推公式为：
+\[
+C_{n} = \sum_{i=0}^{n-1} C_{i} \cdot C_{n-1-i}
+\]
+
+\subsection{常见函数}
+
+\subsubsection{构造函数}
+\begin{itemize}
+\item \textbf{前置条件}：栈不存在
+\item \textbf{输入}：无
+\item \textbf{功能}：栈的初始化
+\item \textbf{输出}：无
+\item \textbf{后置条件}：栈存在且为空
+\end{itemize}
+
+\subsubsection{析构函数}
+\begin{itemize}
+\item \textbf{前置条件}：栈存在
+\item \textbf{输入}：无 
+\item \textbf{功能}：销毁栈，释放动态申请的空间
+\item \textbf{输出}：无
+\item \textbf{后置条件}：栈不存在
+\end{itemize}
+
+\subsubsection{判断长度}
+\begin{itemize}
+\item \textbf{前置条件}：栈存在
+\item \textbf{输入}：无
+\item \textbf{功能}：回传栈的长度
+\item \textbf{输出}：栈的长度
+\item \textbf{后置条件}：栈没有变化
+\end{itemize}
+
+\subsubsection{判空}
+\begin{itemize}
+\item \textbf{前置条件}：栈存在
+\item \textbf{输入}：无
+\item \textbf{功能}：判断栈是否为空
+\item \textbf{输出}：如功能
+\item \textbf{后置条件}：栈没有变化
+\end{itemize}
+
+\subsubsection{进栈}
+\begin{itemize}
+\item \textbf{前置条件}：栈存在
+\item \textbf{输入}：待插入元素x
+\item \textbf{功能}：将元素插入栈顶
+\item \textbf{输出}：无
+\item \textbf{后置条件}：栈顶指针上移，栈长度加1
+\end{itemize}
+
+\subsubsection{出栈}
+\begin{itemize}
+\item \textbf{前置条件}：栈存在
+\item \textbf{输入}：无
+\item \textbf{功能}：将栈顶元素弹出。若栈为空则报错
+\item \textbf{输出}：栈顶元素
+\item \textbf{后置条件}：栈顶指针下移，栈长度减1，若栈为空则报错
+\end{itemize}
+
+\subsubsection{取栈顶元素}
+\begin{itemize}
+\item \textbf{前置条件}：栈存在
+\item \textbf{输入}：无
+\item \textbf{功能}：获取栈顶元素。若栈为空则报错
+\item \textbf{输出}：栈顶元素
+\item \textbf{后置条件}：栈没有变化
+\end{itemize}
+
+\section{栈的实现}
+用数组实现，与向量表很像，关键指标last指向栈顶元素，top指向栈顶元素的下一个位置。
+
+\subsection{顺序结构}
+\subsubsection{入栈}
+last右移，插入数据
+
+\subsubsection{出栈}
+last左移，回传数据，注意空栈的情况($last == -1$)
+
+\subsubsection{其他注意点}
+\begin{itemize}
+\item 注意栈满的情况，但是时间复杂度有变化。
+\item 两个栈共享空间，一个栈从数组左端开始，一个栈从数组右端开始。 
+\end{itemize}
+
+\subsection{链式结构}
+这次不使用空结点，而是直接使用链表的头结点作为栈顶元素。
+所有插入都在开始(头插法)，删除也在开始。
+操作基本上与单链表的头插法和头删法一样。空表为栈顶指针指向空白。
+
+
+
+
+\section{队列的逻辑结构}
+\subsection{定义}
+\indent 队列是只允许在一端进行插入操作，而在另一端进行删除操作的线性表。
+允许插入的一端称为队尾，允许删除的一端称为队头。\\
+\indent 队列的插入操作称为入队(enqueue)，删除操作称为出队(dequeue)。
+队列中最先插入的元素最先被删除，称为先进先出(FIFO,First In First Out)原则。\\
+
+\subsection{常见函数}
+
+\subsubsection{构造函数}
+\begin{itemize}
+\item \textbf{前置条件}：队列不存在
+\item \textbf{输入}：无
+\item \textbf{功能}：队列的初始化
+\item \textbf{输出}：无
+\item \textbf{后置条件}：队列存在且为空
+\end{itemize}
+
+\subsubsection{析构函数}
+\begin{itemize}
+\item \textbf{前置条件}：队列存在
+\item \textbf{输入}：无
+\item \textbf{功能}：销毁队列，释放动态申请的空间
+\item \textbf{输出}：无
+\item \textbf{后置条件}：队列不存在
+\end{itemize}
+
+\subsubsection{判断长度}
+\begin{itemize}
+\item \textbf{前置条件}：队列存在
+\item \textbf{输入}：无
+\item \textbf{功能}：回传队列的长度
+\item \textbf{输出}：队列的长度
+\item \textbf{后置条件}：队列没有变化
+\end{itemize}
+
+\subsubsection{判空}
+\begin{itemize}
+\item \textbf{前置条件}：队列存在
+\item \textbf{输入}：无
+\item \textbf{功能}：判断队列是否为空
+\item \textbf{输出}：如功能
+\item \textbf{后置条件}：队列没有变化
+\end{itemize}
+
+\subsubsection{入队}
+\begin{itemize}
+\item \textbf{前置条件}：队列存在
+\item \textbf{输入}：待插入元素x
+\item \textbf{功能}：将元素插入队尾
+\item \textbf{输出}：无
+\item \textbf{后置条件}：队尾指针后移，队列长度加1
+\end{itemize}
+
+\subsubsection{出队}
+\begin{itemize}
+\item \textbf{前置条件}：队列存在
+\item \textbf{输入}：无
+\item \textbf{功能}：将队头元素弹出。若队列为空则报错
+\item \textbf{输出}：队头元素
+\item \textbf{后置条件}：队头指针后移，队列长度减1，若队列为空则报错
+\end{itemize}
+
+\subsubsection{取队头元素}
+\begin{itemize}
+\item \textbf{前置条件}：队列存在
+\item \textbf{输入}：无
+\item \textbf{功能}：获取队头元素。若队列为空则报错
+\item \textbf{输出}：队头元素
+\item \textbf{后置条件}：队列没有变化
+\end{itemize}
+
+\section{队列的实现}
+基于数组实现，关键是有两个指标front和last，分别指向队头和队尾。
+\subsubsection{入队}
+last右移，插入数据
+
+\subsubsection{出队}
+front右移，回传数据，注意空队列的情况($front == last+1$)
+
+\subsection{链式结构}
+\indent 这用的更多一些，规避了数组容量的问题。这里还是使用空节点。
+出队在队头的方向，跟单链表删除首个元素的一样。
+如果删除唯一存在的数据，尾指针需要调整位置。
+入队利用尾指针，插入到尾节点的后面，然后更新尾指针。
+空队就是头指针和尾指针都指向同一个节点空节点。
+
+\section{栈的一个简单应用：四则运算计算器}
+\indent 使用RPN(Reverse Polish Notation)逆波兰表达式来计算。示例：\\
+\indent 中缀表达式：1+2*3\\
+\indent 逆波兰表达式：1 2 3 * +\\   
+\indent 计算过程：如果是数字，入栈，如果是运算符，弹栈两次，计算后入栈。\\
+\indent 例如计算1 2 3 * +的过程为：\\
+\begin{itemize}
+\item 读入1，压栈
+\item 读入2，压栈
+\item 读入3，压栈
+\item 读入*，弹出3和2，计算2*3=6，压栈
+\item 读入+，弹出6和1，计算1+6=7，压栈
+\end{itemize}
+最终结果为7。
+
+\end{document}
