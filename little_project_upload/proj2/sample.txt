@@ -1,0 +1,179 @@
+6 9
+A B C D E F
+A B 34
+A F 19
+A C 46
+F C 25
+F D 25
+F E 26
+C D 17
+D E 38
+B E 12
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+paths A C 10
+
+There are 8 paths.
+Path 0: A -> F -> C, distance = 44
+Path 1: A -> C, distance = 46
+Path 2: A -> F -> D -> C, distance = 61
+Path 3: A -> B -> E -> F -> C, distance = 97
+Path 4: A -> F -> E -> D -> C, distance = 100
+Path 5: A -> B -> E -> D -> C, distance = 101
+Path 6: A -> B -> E -> F -> D -> C, distance = 114
+Path 7: A -> B -> E -> D -> F -> C, distance = 134
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+paths A F 10
+
+There are 7 paths.
+Path 0: A -> F, distance = 19
+Path 1: A -> C -> F, distance = 71
+Path 2: A -> B -> E -> F, distance = 72
+Path 3: A -> C -> D -> F, distance = 88
+Path 4: A -> B -> E -> D -> F, distance = 109
+Path 5: A -> B -> E -> D -> C -> F, distance = 126
+Path 6: A -> C -> D -> E -> F, distance = 127
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+maxTrans 2
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+paths A F 10
+
+There are 4 paths.
+Path 0: A -> F, distance = 19
+Path 1: A -> C -> F, distance = 71
+Path 2: A -> B -> E -> F, distance = 72
+Path 3: A -> C -> D -> F, distance = 88
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+maxTrans -1
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+ban C
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+ban D
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+paths A F 10
+
+There are 2 paths.
+Path 0: A -> F, distance = 19
+Path 1: A -> B -> E -> F, distance = 72
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+unban D
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+paths A F 10
+
+There are 3 paths.
+Path 0: A -> F, distance = 19
+Path 1: A -> B -> E -> F, distance = 72
+Path 2: A -> B -> E -> D -> F, distance = 109
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+ban D
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+unban C
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+paths A F 10
+
+There are 3 paths.
+Path 0: A -> F, distance = 19
+Path 1: A -> C -> F, distance = 71
+Path 2: A -> B -> E -> F, distance = 72
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+unban C
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+ban B
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+paths A F 10
+
+There are 2 paths.
+Path 0: A -> F, distance = 19
+Path 1: A -> C -> F, distance = 71
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+unban D
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+paths A F 10
+
+There are 4 paths.
+Path 0: A -> F, distance = 19
+Path 1: A -> C -> F, distance = 71
+Path 2: A -> C -> D -> F, distance = 88
+Path 3: A -> C -> D -> E -> F, distance = 127
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+maxTrans 2
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+paths A F 10
+
+There are 3 paths.
+Path 0: A -> F, distance = 19
+Path 1: A -> C -> F, distance = 71
+Path 2: A -> C -> D -> F, distance = 88
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+paths A F 2
+
+There are 2 paths.
+Path 0: A -> F, distance = 19
+Path 1: A -> C -> F, distance = 71
+
+Please enter your next request.
+Options include: ban X, unban X, maxTrans Y, paths A B k, quit.
+
+quit
